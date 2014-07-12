@@ -1,0 +1,6 @@
+<h1>Posts</h1>
+<a href="<%= Blog.Router.new_post_path %>" >Novo post</a>
+<%= for post <- @posts do %>
+  <h3><%= post.title %></h3>
+  <p><%= post.content %></p>
+<% end %>

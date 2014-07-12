@@ -1,0 +1,14 @@
+<h1>Create a new post</h1>
+<form method="post" action="<%= Blog.Router.posts_path %>">
+  <div>
+    <label for="post_title">Título</label>
+    <input id="post_title" type="text" name="title" value="" >
+  </div>
+  <div>
+    <label for="post_content">Conteúdo</label>
+    <textarea id="post_content" name="content"></textarea>
+  </div>
+  <div>
+    <input type="submit" value="Criar" >
+  </div>
+</form>
