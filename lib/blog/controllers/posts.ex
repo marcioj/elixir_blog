@@ -1,6 +1,5 @@
 defmodule Blog.Controllers.Posts do
   use Phoenix.Controller
-  require IEx
 
   def index(conn, _params) do
     render conn, "index", posts: Post.all
