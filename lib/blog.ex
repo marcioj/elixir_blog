@@ -9,6 +9,11 @@ defmodule Blog do
     opts = [name: Blog.Supervisor, strategy: :one_for_one]
     Supervisor.start_link(tree, opts)
   end
+
+  def config_change(changed, _new, removed) do
+    Blog.Endpoint.config_change(changed, removed)
+    :ok
+  end
 end
 
 defmodule Repo do
