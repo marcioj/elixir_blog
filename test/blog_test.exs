@@ -1,6 +1,7 @@
 defmodule BlogTest do
   use ExUnit.Case
   use PlugHelper
+  use EctoHelper
 
   test "GET index" do
     conn = request(:get, "/posts")
