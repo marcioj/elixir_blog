@@ -5,7 +5,7 @@ defmodule Blog do
   # for more information on OTP Applications
   def start(_type, _args) do
     import Supervisor.Spec
-    tree = [worker(Repo, [])]
+    tree = [worker(Repo, []), worker(Blog.Endpoint, [])]
     opts = [name: Blog.Supervisor, strategy: :one_for_one]
     Supervisor.start_link(tree, opts)
   end

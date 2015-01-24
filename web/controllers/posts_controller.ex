@@ -13,6 +13,6 @@ defmodule Blog.PostsController do
 
   def create(conn, params) do
     Post.save params
-    redirect conn, to: Blog.Router.Helpers.posts_path(:index)
+    redirect conn, to: Blog.Router.Helpers.posts_path(conn, :index)
   end
 end

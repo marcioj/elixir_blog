@@ -14,6 +14,7 @@ defmodule PlugHelper do
       def request(http_method, path) do
         conn = conn(http_method, path)
         |> Map.put(:secret_key_base, String.duplicate("abcdefgh", 8))
+        |> Plug.Conn.put_private(:plug_skip_csrf_protection, true)
         |> Plug.Session.call(@session)
         |> Plug.Conn.fetch_params
         Blog.Router.call(conn, [])

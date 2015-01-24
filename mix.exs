@@ -4,7 +4,7 @@ defmodule Blog.Mixfile do
   def project do
     [ app: :blog,
       version: "0.0.1",
-      elixir: "1.1.0-dev",
+      elixir: "1.0.2",
       elixirc_paths: ["lib", "web"],
       compilers: [:phoenix] ++ Mix.compilers,
       deps: deps ]
@@ -27,7 +27,7 @@ defmodule Blog.Mixfile do
     [
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 0.2.5"},
-      {:phoenix, "~> 0.7.2"},
+      {:phoenix, "~> 0.8.0"},
       {:cowboy, "~> 1.0"}
     ]
   end
