@@ -4,6 +4,8 @@
 
 ## Installation
 
+1. Clone the repo with `git clone git@github.com:marcioj/elixir_blog.git`
+1. `cd elixir_blog`
 1. Install dependencies with `mix deps.get`
 1. Create the development database with `mix ecto.create Repo`
 1. Create the development database tables with `mix ecto.migrate Repo`
