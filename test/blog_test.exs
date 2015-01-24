@@ -46,4 +46,10 @@ defmodule BlogTest do
     assert conn.status == 302
     assert conn.state == :sent
   end
+
+  test "PagesController GET index" do
+    conn = request(:get, page_path(nil, :index))
+    assert conn.status == 302
+    assert conn.state == :sent
+  end
 end
