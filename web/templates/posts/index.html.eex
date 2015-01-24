@@ -3,4 +3,6 @@
 <%= for post <- @posts do %>
   <h3><%= post.title %></h3>
   <p><%= post.content %></p>
+  <p><a href="<%= posts_path(@conn, :edit, post.id)  %>">Edit</a></p>
+  <hr />
 <% end %>

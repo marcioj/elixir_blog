@@ -12,8 +12,19 @@ defmodule Post do
     Repo.all(query)
   end
 
-  def save(params) do
+  def find(id) do
+    {id, _} = Integer.parse id
+    Repo.get(Post, id)
+  end
+
+  def create(params) do
     user = %Post{ content: Map.get(params, "content"), title: Map.get(params, "title") }
     Repo.insert user
+  end
+
+  def update(params) do
+    {id, _} = Integer.parse params["id"]
+    user = %Post{ id: id, content: Map.get(params, "content"), title: Map.get(params, "title") }
+    Repo.update user
   end
 end

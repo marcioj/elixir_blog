@@ -1,0 +1,8 @@
+<h1>Edit your post</h1>
+<form method="post" action="<%= posts_path(@conn, :update, @post.id) %>">
+  <input type="hidden" name="_method" value="put" />
+  <%= render Blog.PostsView, "_form.html", [conn: @conn, post: @post] %>
+  <div>
+    <input type="submit" value="Update" >
+  </div>
+</form>
