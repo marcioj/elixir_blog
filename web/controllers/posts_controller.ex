@@ -1,5 +1,6 @@
 defmodule Blog.PostsController do
   use Phoenix.Controller
+  import Blog.Router.Helpers
 
   plug :action
 
@@ -13,7 +14,7 @@ defmodule Blog.PostsController do
 
   def create(conn, params) do
     Post.create params
-    redirect conn, to: Blog.Router.Helpers.posts_path(conn, :index)
+    redirect conn, to: posts_path(conn, :index)
   end
 
   def edit(conn, params) do
@@ -23,11 +24,11 @@ defmodule Blog.PostsController do
 
   def update(conn, params) do
     post = Post.update params
-    redirect conn, to: Blog.Router.Helpers.posts_path(conn, :index)
+    redirect conn, to: posts_path(conn, :index)
   end
 
   def destroy(conn, params) do
     post = Post.destroy params["id"]
-    redirect conn, to: Blog.Router.Helpers.posts_path(conn, :index)
+    redirect conn, to: posts_path(conn, :index)
   end
 end
