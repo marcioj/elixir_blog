@@ -1,14 +1,22 @@
-<h1>Posts</h1>
-<a href="<%= Blog.Router.Helpers.posts_path(@conn, :new) %>" >Novo post</a>
+<div class="page-header">
+  <h1>Lastest posts</h1>
+</div>
+<a href="<%= Blog.Router.Helpers.posts_path(@conn, :new) %>" >Create a new post</a>
 <%= for post <- @posts do %>
-  <h3><%= post.title %></h3>
-  <p><%= post.content %></p>
-  <p><a href="<%= posts_path(@conn, :edit, post.id)  %>">Edit</a></p>
-  <p>
-    <form method="post" onsubmit="return confirm('Are you sure?');" action="<%= posts_path(@conn, :destroy, post.id, _method: "delete") %>">
-      <input type="hidden" name="csrf_token" value="<%= Plug.Conn.get_session(@conn, :csrf_token) %>" />
-      <input type="submit" value="Remove">
-    </form>
-  </p>
+  <div class="row">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8">
+      <h2><%= post.title %></h4>
+      <p class="post-content"><%= post.content %></p>
+      <div>
+        <a href="<%= posts_path(@conn, :edit, post.id)  %>" class="btn btn-default">Edit</a>
+        <form style="float: right;" method="post" onsubmit="return confirm('Are you sure?');" action="<%= posts_path(@conn, :destroy, post.id, _method: "delete") %>">
+          <input type="hidden" name="csrf_token" value="<%= Plug.Conn.get_session(@conn, :csrf_token) %>" />
+          <input type="submit" value="Remove" class="btn btn-danger">
+        </form>
+      </div>
+    </div>
+    <div class="col-xs-2"></div>
+  </div>
   <hr />
 <% end %>

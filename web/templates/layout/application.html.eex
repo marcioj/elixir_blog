@@ -8,10 +8,14 @@
     <meta name="author" content="">
 
     <title>Blog</title>
-    <link rel="stylesheet" href="/static/css/app.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="/js/phoenix.js"></script>
   </head>
 
   <body>
-    <%= @inner %>
+    <div class="container">
+      <%= @inner %>
+    </div>
   </body>
 </html>
