@@ -1,5 +1,6 @@
 <h1>Create a new post</h1>
 <form method="post" action="<%= Blog.Router.Helpers.posts_path(@conn, :index) %>">
+  <input type="hidden" name="csrf_token" value="<%= Plug.Conn.get_session(@conn, :csrf_token) %>" />
   <div>
     <label for="post_title">Título</label>
     <input id="post_title" type="text" name="title" value="" >
