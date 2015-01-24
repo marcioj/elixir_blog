@@ -11,8 +11,8 @@ defmodule PlugHelper do
         signing_salt: "yadayada"
       )
 
-      def request(http_method, path) do
-        conn = conn(http_method, path)
+      def request(http_method, path, params \\ nil) do
+        conn = conn(http_method, path, params)
         |> Map.put(:secret_key_base, String.duplicate("abcdefgh", 8))
         |> Plug.Conn.put_private(:plug_skip_csrf_protection, true)
         |> Plug.Session.call(@session)
