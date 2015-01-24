@@ -25,4 +25,9 @@ defmodule Blog.PostsController do
     post = Post.update params
     redirect conn, to: Blog.Router.Helpers.posts_path(conn, :index)
   end
+
+  def destroy(conn, params) do
+    post = Post.destroy params["id"]
+    redirect conn, to: Blog.Router.Helpers.posts_path(conn, :index)
+  end
 end

@@ -38,4 +38,12 @@ defmodule BlogTest do
     assert conn.status == 302
     assert conn.state == :sent
   end
+
+  test "DELETE destroy" do
+    post = Post.create(%{ title: "hello", content: "world" })
+    conn = request(:delete, posts_path(nil, :destroy, post.id))
+    assert Post.all == []
+    assert conn.status == 302
+    assert conn.state == :sent
+  end
 end

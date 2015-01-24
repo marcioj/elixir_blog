@@ -4,5 +4,11 @@
   <h3><%= post.title %></h3>
   <p><%= post.content %></p>
   <p><a href="<%= posts_path(@conn, :edit, post.id)  %>">Edit</a></p>
+  <p>
+    <form method="post" onsubmit="return confirm('Are you sure?');" action="<%= posts_path(@conn, :destroy, post.id, _method: "delete") %>">
+      <input type="hidden" name="csrf_token" value="<%= Plug.Conn.get_session(@conn, :csrf_token) %>" />
+      <input type="submit" value="Remove">
+    </form>
+  </p>
   <hr />
 <% end %>
