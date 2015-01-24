@@ -6,7 +6,7 @@ defmodule Repo.Migrations.CreatePosts do
     CREATE TABLE IF NOT EXISTS post (
       id SERIAL,
       title varchar(255),
-      content varchar(255)
+      content text
     )
     """
   end
