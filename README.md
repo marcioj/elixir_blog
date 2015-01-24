@@ -1,6 +1,6 @@
 # Blog
 
->> A simple CRUD application for learning purposes using phoenix and ecto.
+> A simple CRUD application for learning purposes using phoenix and ecto.
 
 ## Installation
 
