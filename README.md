@@ -9,7 +9,7 @@
 1. Install dependencies with `mix deps.get`
 1. Create the development database with `mix ecto.create Repo`
 1. Create the development database tables with `mix ecto.migrate Repo`
-1. Start Phoenix router with `mix phoenix.start`
+1. Start Phoenix router with `mix phoenix.server`
 
 Now you can visit `localhost:4000` from your browser.
 
