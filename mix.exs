@@ -26,7 +26,7 @@ defmodule Blog.Mixfile do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 0.2.5"},
+      {:ecto, "~> 0.8.1"},
       {:phoenix, "~> 0.9.0"},
       {:cowboy, "~> 1.0"}
     ]

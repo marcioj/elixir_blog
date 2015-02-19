@@ -18,3 +18,9 @@ config :blog, Blog.Endpoint,
 
 config :logger,
   level: :info
+
+config :blog, Repo,
+  database: "blog_prod",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost"

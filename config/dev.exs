@@ -6,3 +6,9 @@ config :blog, Blog.Endpoint,
 
 # Enables code reloading for development
 config :phoenix, :code_reloader, true
+
+config :blog, Repo,
+  database: "blog_dev",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost"

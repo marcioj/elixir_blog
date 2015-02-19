@@ -5,3 +5,9 @@ config :blog, Blog.Endpoint,
 
 config :logger,
   level: :error
+
+config :blog, Repo,
+  database: "blog_test",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost"

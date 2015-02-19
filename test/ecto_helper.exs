@@ -1,12 +1,12 @@
 defmodule EctoHelper do
   use ExUnit.CaseTemplate
-  alias Ecto.Adapters.Postgres
+  alias Ecto.Adapters.SQL
 
   setup do
-    :ok = Postgres.begin_test_transaction(Repo, [])
+    :ok = SQL.begin_test_transaction(Repo, [])
 
     on_exit fn ->
-      :ok = Postgres.rollback_test_transaction(Repo, [])
+      :ok = SQL.rollback_test_transaction(Repo, [])
     end
 
     :ok
