@@ -27,7 +27,7 @@ defmodule Blog.PostsController do
     redirect conn, to: posts_path(conn, :index)
   end
 
-  def destroy(conn, params) do
+  def delete(conn, params) do
     post = Post.destroy params["id"]
     redirect conn, to: posts_path(conn, :index)
   end
