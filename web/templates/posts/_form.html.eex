@@ -1,4 +1,4 @@
-<input type="hidden" name="csrf_token" value="<%= Plug.Conn.get_session(@conn, :csrf_token) %>" />
+<input type="hidden" name="_csrf_token" value="<%= @conn.req_cookies["_csrf_token"] %>" />
 <div class="form-group">
   <label for="post_title">Title</label>
   <input class="form-control" id="post_title" type="text" name="title" value="<%= @post.title %>" />

@@ -10,8 +10,8 @@
       <p class="post-content"><%= post.content %></p>
       <div>
         <a href="<%= posts_path(@conn, :edit, post.id)  %>" class="btn btn-default">Edit</a>
-        <form style="float: right;" method="post" onsubmit="return confirm('Are you sure?');" action="<%= posts_path(@conn, :destroy, post.id, _method: "delete") %>">
-          <input type="hidden" name="csrf_token" value="<%= Plug.Conn.get_session(@conn, :csrf_token) %>" />
+        <form style="float: right;" method="post" onsubmit="return confirm('Are you sure?');" action="<%= posts_path(@conn, :delete, post.id, _method: "delete") %>">
+          <input type="hidden" name="_csrf_token" value="<%= @conn.req_cookies["_csrf_token"] %>" />
           <input type="submit" value="Remove" class="btn btn-danger">
         </form>
       </div>
