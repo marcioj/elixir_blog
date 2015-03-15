@@ -3,6 +3,7 @@ defmodule BlogTest do
   use PlugHelper
   use EctoHelper
   import Blog.Router.Helpers
+  import Phoenix.Controller
 
   test "PostsController GET index" do
     conn = request(:get, posts_path(nil, :index))
@@ -22,6 +23,7 @@ defmodule BlogTest do
     assert [%Post{content: "bar", title: "foo"}] = Repo.all(Post)
     assert conn.status == 302
     assert conn.state == :sent
+    assert get_flash(conn, :notice) == "Post 'foo' created!"
   end
 
   test "PostsController GET edit" do
@@ -37,6 +39,7 @@ defmodule BlogTest do
     assert [%Post{title: "new title", content: "new content"}] = Repo.all(Post)
     assert conn.status == 302
     assert conn.state == :sent
+    assert get_flash(conn, :notice) == "Post 'new title' updated!"
   end
 
   test "PostsController DELETE delete" do
@@ -45,6 +48,7 @@ defmodule BlogTest do
     assert Repo.all(Post) == []
     assert conn.status == 302
     assert conn.state == :sent
+    assert get_flash(conn, :notice) == "Post deleted!"
   end
 
   test "PagesController GET index" do

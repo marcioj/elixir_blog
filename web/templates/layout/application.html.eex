@@ -13,6 +13,18 @@
 
   <body>
     <div class="container">
+
+      <%= if message = get_flash(@conn, :notice) do %>
+        <div class="alert alert-success" role="alert">
+          <%= message %>
+        </div>
+      <% end %>
+      <%= if message = get_flash(@conn, :alert) do %>
+        <div class="alert alert-warning" role="alert">
+          <%= message %>
+        </div>
+      <% end %>
+
       <%= @inner %>
     </div>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

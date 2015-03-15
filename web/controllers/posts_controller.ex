@@ -14,8 +14,10 @@ defmodule Blog.PostsController do
   def create(conn, params) do
     changeset = Post.changeset %Post{}, params["post"]
     if changeset.valid? do
-      Repo.insert(changeset)
-      redirect conn, to: posts_path(conn, :index)
+      post = Repo.insert(changeset)
+      conn
+        |> put_flash(:notice, "Post '#{post.title}' created!")
+        |> redirect to: posts_path(conn, :index)
     else
       # TODO
     end
@@ -29,15 +31,19 @@ defmodule Blog.PostsController do
   def update(conn, params) do
     changeset = Post.changeset Repo.get!(Post, params["id"]), params["post"]
     if changeset.valid? do
-      Repo.update(changeset)
-      redirect conn, to: posts_path(conn, :index)
+      post = Repo.update(changeset)
+      conn
+        |> put_flash(:notice, "Post '#{post.title}' updated!")
+        |> redirect to: posts_path(conn, :index)
     else
       # TODO
     end
   end
 
   def delete(conn, params) do
-    post = Post.destroy params["id"]
-    redirect conn, to: posts_path(conn, :index)
+    Post.destroy params["id"]
+    conn
+      |> put_flash(:notice, "Post deleted!")
+      |> redirect to: posts_path(conn, :index)
   end
 end
