@@ -12,8 +12,13 @@ defmodule Blog.PostsController do
   end
 
   def create(conn, params) do
-    Post.create params["post"]
-    redirect conn, to: posts_path(conn, :index)
+    changeset = Post.changeset %Post{}, params["post"]
+    if changeset.valid? do
+      Repo.insert(changeset)
+      redirect conn, to: posts_path(conn, :index)
+    else
+      # TODO
+    end
   end
 
   def edit(conn, params) do
@@ -22,8 +27,13 @@ defmodule Blog.PostsController do
   end
 
   def update(conn, params) do
-    post = Post.update params["id"], params["post"]
-    redirect conn, to: posts_path(conn, :index)
+    changeset = Post.changeset Repo.get!(Post, params["id"]), params["post"]
+    if changeset.valid? do
+      Repo.update(changeset)
+      redirect conn, to: posts_path(conn, :index)
+    else
+      # TODO
+    end
   end
 
   def delete(conn, params) do

@@ -25,14 +25,14 @@ defmodule BlogTest do
   end
 
   test "PostsController GET edit" do
-    post = Post.create(%{ title: "hello", content: "world" })
+    post = Repo.insert(%Post{ title: "hello", content: "world" })
     conn = request(:get, posts_path(nil, :edit, post.id))
     assert conn.status == 200
     assert conn.state == :sent
   end
 
   test "PostsController PUT update" do
-    post = Post.create(%{ title: "hello", content: "world" })
+    post = Repo.insert(%Post{ title: "hello", content: "world" })
     conn = request(:put, posts_path(nil, :update, post.id), %{ post: %{ title: "new title", content: "new content" } })
     assert [%Post{title: "new title", content: "new content"}] = Post.all
     assert conn.status == 302
@@ -40,7 +40,7 @@ defmodule BlogTest do
   end
 
   test "PostsController DELETE delete" do
-    post = Post.create(%{ title: "hello", content: "world" })
+    post = Repo.insert(%Post{ title: "hello", content: "world" })
     conn = request(:delete, posts_path(nil, :delete, post.id))
     assert Post.all == []
     assert conn.status == 302
