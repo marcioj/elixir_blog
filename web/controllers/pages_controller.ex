@@ -1,5 +1,5 @@
 defmodule Blog.PagesController do
-  use Phoenix.Controller
+  use Blog.Web, :controller
 
   plug :action
 

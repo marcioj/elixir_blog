@@ -8,14 +8,14 @@
     <meta name="author" content="">
 
     <title>Blog</title>
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/app.css">
-    <script src="/js/phoenix.js"></script>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
     <div class="container">
       <%= @inner %>
     </div>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script>require("web/static/js/app")</script>
   </body>
 </html>

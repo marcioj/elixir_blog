@@ -8,9 +8,10 @@ use Mix.Config
 # Configures the endpoint
 config :blog, Blog.Endpoint,
   url: [host: "localhost"],
-  http: [port: System.get_env("PORT")],
   secret_key_base: "wuSIkKk88wffd3ZiT0FuDn90jsYaTZ1rXSMGhTofC184TK/zm5OdFqXrbgi+gPO7",
-  debug_errors: false
+  debug_errors: false,
+  pubsub: [name: Blog.PubSub,
+           adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,

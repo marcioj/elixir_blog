@@ -1,13 +1,20 @@
 defmodule Blog do
   use Application
 
-  # See http://elixir-lang.org/docs/stable/Application.Behaviour.html
+  # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
-    import Supervisor.Spec
-    tree = [worker(Repo, []), worker(Blog.Endpoint, [])]
+    import Supervisor.Spec, warn: false
+
+    children = [
+      # Start the endpoint when the application starts
+      supervisor(Blog.Endpoint, []),
+      # Start the Ecto repository
+      worker(Repo, [])
+    ]
+
     opts = [name: Blog.Supervisor, strategy: :one_for_one]
-    Supervisor.start_link(tree, opts)
+    Supervisor.start_link(children, opts)
   end
 
   def config_change(changed, _new, removed) do

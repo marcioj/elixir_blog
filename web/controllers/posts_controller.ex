@@ -1,6 +1,5 @@
 defmodule Blog.PostsController do
-  use Phoenix.Controller
-  import Blog.Router.Helpers
+  use Blog.Web, :controller
 
   plug :action
 

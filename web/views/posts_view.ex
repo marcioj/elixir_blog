@@ -1,4 +1,4 @@
 defmodule Blog.PostsView do
-  use Blog.View
+  use Blog.Web, :view
 
 end
