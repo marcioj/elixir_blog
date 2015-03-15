@@ -22,7 +22,7 @@ defmodule Blog.PostsController do
   end
 
   def edit(conn, params) do
-    post = Post.find params["id"]
+    post = Repo.get!(Post, params["id"])
     render conn, "edit.html", post: post
   end
 

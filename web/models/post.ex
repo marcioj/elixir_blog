@@ -6,11 +6,6 @@ defmodule Post do
     field :content, :string
   end
 
-  def find(id) do
-    {id, _} = Integer.parse id
-    Repo.get(Post, id)
-  end
-
   def destroy(id) do
     {id, _} = Integer.parse id
     Repo.delete(%Post{ id: id })
