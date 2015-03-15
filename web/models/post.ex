@@ -1,5 +1,5 @@
 defmodule Post do
-  use Ecto.Model
+  use Blog.Web, :model
 
   schema "post" do
     field :title, :string
