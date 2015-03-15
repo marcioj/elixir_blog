@@ -22,8 +22,8 @@ defmodule Post do
     Repo.insert user
   end
 
-  def update(params) do
-    {id, _} = Integer.parse params["id"]
+  def update(id, params) do
+    {id, _} = Integer.parse id
     user = %Post{ id: id, content: Map.get(params, "content"), title: Map.get(params, "title") }
     Repo.update user
   end

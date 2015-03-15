@@ -12,7 +12,7 @@ defmodule Blog.PostsController do
   end
 
   def create(conn, params) do
-    Post.create params
+    Post.create params["post"]
     redirect conn, to: posts_path(conn, :index)
   end
 
@@ -22,7 +22,7 @@ defmodule Blog.PostsController do
   end
 
   def update(conn, params) do
-    post = Post.update params
+    post = Post.update params["id"], params["post"]
     redirect conn, to: posts_path(conn, :index)
   end
 

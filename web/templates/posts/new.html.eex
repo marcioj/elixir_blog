@@ -1,12 +1,12 @@
 <div class="col-xs-3" ></div>
 <div class="col-xs-6">
   <h1>Create a new post</h1>
-  <%= form_tag(posts_path(@conn, :create), method: :post) %>
-    <%= render Blog.PostsView, "_form.html", [conn: @conn, post: @post] %>
+  <%= form_for @conn, posts_path(@conn, :create), [name: :post, method: :post], fn f -> %>
+    <%= render Blog.PostsView, "_form.html", [conn: @conn, post: @post, form: f] %>
     <div class="form-group">
-      <input class="btn btn-default" type="submit" value="Create" >
+      <%= submit "Create", class: "btn btn-default" %>
       <a class="pull-right" href="<%= posts_path(@conn, :index) %>">Back to posts</a>
     </div>
-  </form>
+  <% end %>
 </div>
 <div class="col-xs-3" ></div>

@@ -18,7 +18,7 @@ defmodule BlogTest do
 
   test "PostsController POST create" do
     assert Post.all == []
-    conn = request(:post, posts_path(nil, :create), title: "foo", content: "bar")
+    conn = request(:post, posts_path(nil, :create), %{ post: %{ title: "foo", content: "bar" } })
     assert [%Post{content: "bar", title: "foo"}] = Post.all
     assert conn.status == 302
     assert conn.state == :sent
@@ -33,7 +33,7 @@ defmodule BlogTest do
 
   test "PostsController PUT update" do
     post = Post.create(%{ title: "hello", content: "world" })
-    conn = request(:put, posts_path(nil, :update, post.id), title: "new title", content: "new content")
+    conn = request(:put, posts_path(nil, :update, post.id), %{ post: %{ title: "new title", content: "new content" } })
     assert [%Post{title: "new title", content: "new content"}] = Post.all
     assert conn.status == 302
     assert conn.state == :sent
