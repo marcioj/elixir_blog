@@ -14,7 +14,7 @@ defmodule Blog.Mixfile do
   def application do
     [
       mod: { Blog, [] },
-      applications: [:phoenix, :cowboy, :logger, :postgrex, :ecto]
+      applications: [:phoenix, :phoenix_ecto, :cowboy, :logger, :postgrex]
     ]
   end
 
@@ -26,8 +26,8 @@ defmodule Blog.Mixfile do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 0.8.1"},
       {:phoenix, "~> 0.10.0"},
+      {:phoenix_ecto, "~> 0.1.0"},
       {:cowboy, "~> 1.0"}
     ]
   end
