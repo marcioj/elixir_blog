@@ -17,9 +17,9 @@ defmodule BlogTest do
   end
 
   test "PostsController POST create" do
-    assert Post.all == []
+    assert Repo.all(Post) == []
     conn = request(:post, posts_path(nil, :create), %{ post: %{ title: "foo", content: "bar" } })
-    assert [%Post{content: "bar", title: "foo"}] = Post.all
+    assert [%Post{content: "bar", title: "foo"}] = Repo.all(Post)
     assert conn.status == 302
     assert conn.state == :sent
   end
@@ -34,7 +34,7 @@ defmodule BlogTest do
   test "PostsController PUT update" do
     post = Repo.insert(%Post{ title: "hello", content: "world" })
     conn = request(:put, posts_path(nil, :update, post.id), %{ post: %{ title: "new title", content: "new content" } })
-    assert [%Post{title: "new title", content: "new content"}] = Post.all
+    assert [%Post{title: "new title", content: "new content"}] = Repo.all(Post)
     assert conn.status == 302
     assert conn.state == :sent
   end
@@ -42,7 +42,7 @@ defmodule BlogTest do
   test "PostsController DELETE delete" do
     post = Repo.insert(%Post{ title: "hello", content: "world" })
     conn = request(:delete, posts_path(nil, :delete, post.id))
-    assert Post.all == []
+    assert Repo.all(Post) == []
     assert conn.status == 302
     assert conn.state == :sent
   end

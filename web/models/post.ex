@@ -6,12 +6,6 @@ defmodule Post do
     field :content, :string
   end
 
-  def all do
-    query = from w in __MODULE__,
-    select: w
-    Repo.all(query)
-  end
-
   def find(id) do
     {id, _} = Integer.parse id
     Repo.get(Post, id)

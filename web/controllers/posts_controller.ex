@@ -4,7 +4,7 @@ defmodule Blog.PostsController do
   plug :action
 
   def index(conn, _params) do
-    render conn, "index.html", posts: Post.all
+    render conn, "index.html", posts: Repo.all(Post)
   end
 
   def new(conn, _params) do
