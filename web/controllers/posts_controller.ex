@@ -8,7 +8,8 @@ defmodule Blog.PostsController do
   end
 
   def new(conn, _params) do
-    render conn, "new.html", post: %Post{}
+    changeset = Post.changeset(%Post{})
+    render conn, "new.html", changeset: changeset
   end
 
   def create(conn, params) do
@@ -19,13 +20,16 @@ defmodule Blog.PostsController do
         |> put_flash(:notice, "Post '#{post.title}' created!")
         |> redirect to: posts_path(conn, :index)
     else
-      # TODO
+      conn
+        |> put_flash(:alert, "Error when creating a post. Please see the errors below.")
+        |> render "new.html", changeset: changeset
     end
   end
 
   def edit(conn, params) do
     post = Repo.get!(Post, params["id"])
-    render conn, "edit.html", post: post
+    post = Post.changeset(post)
+    render conn, "edit.html", changeset: post
   end
 
   def update(conn, params) do
@@ -36,7 +40,9 @@ defmodule Blog.PostsController do
         |> put_flash(:notice, "Post '#{post.title}' updated!")
         |> redirect to: posts_path(conn, :index)
     else
-      # TODO
+      conn
+        |> put_flash(:alert, "Error when updating a post. Please see the errors below.")
+        |> render "edit.html", changeset: changeset
     end
   end
 

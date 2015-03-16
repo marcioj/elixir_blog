@@ -22,9 +22,11 @@ defmodule Blog.Web do
       # Import all HTML functions (forms, tags, etc)
       use Phoenix.HTML
 
-      # *****
-      # Copy your old `web/view.ex` using block contents here
-      # *****
+      import Ecto.Changeset, only: [get_field: 2]
+
+      def error_for_field(%Ecto.Changeset{errors: errors} = changeset, field) do
+        errors[field]
+      end
     end
   end
 
