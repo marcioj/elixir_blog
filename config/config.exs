@@ -7,6 +7,7 @@ use Mix.Config
 
 # Configures the endpoint
 config :blog, Blog.Endpoint,
+  root: Path.expand("..", __DIR__),
   url: [host: "localhost"],
   secret_key_base: "wuSIkKk88wffd3ZiT0FuDn90jsYaTZ1rXSMGhTofC184TK/zm5OdFqXrbgi+gPO7",
   debug_errors: false,

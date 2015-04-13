@@ -7,6 +7,7 @@ config :logger,
   level: :error
 
 config :blog, Repo,
+  adapter: Ecto.Adapters.Postgres,
   database: "blog_test",
   username: "postgres",
   password: "postgres",

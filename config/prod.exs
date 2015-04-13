@@ -20,6 +20,7 @@ config :logger,
   level: :info
 
 config :blog, Repo,
+  adapter: Ecto.Adapters.Postgres,
   database: "blog_prod",
   username: "postgres",
   password: "postgres",
