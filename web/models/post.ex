@@ -18,22 +18,4 @@ defmodule Blog.Post do
       |> validate_presence(:title, "Title is required")
       |> validate_presence(:content, "Content is required")
   end
-
-  defp validate_presence(changeset, field, message \\ :presence) do
-    validate_change changeset, field, fn _, value ->
-      if present?(value) do
-        []
-      else
-        [{field, message}]
-      end
-    end
-  end
-
-  defp present?(obj) when obj in [nil, ""] do
-    false
-  end
-
-  defp present?(str) when is_bitstring(str)  do
-    str |> String.strip |> String.length > 0
-  end
 end

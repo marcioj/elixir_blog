@@ -26,6 +26,8 @@ defmodule Blog.Web do
 
       import Ecto.Changeset, only: [get_field: 2]
 
+      import Blog.Authenticable
+
       def error_for_field(%Ecto.Changeset{errors: errors} = changeset, field) do
         errors[field]
       end
@@ -38,12 +40,45 @@ defmodule Blog.Web do
 
       # Import URL helpers from the router
       import Blog.Router.Helpers
+
+      import Blog.Authenticable
     end
   end
 
   def model do
     quote do
       use Ecto.Model
+
+      defp validate_presence(changeset, field, message \\ :presence) do
+        validate_change changeset, field, fn _, value ->
+          if present?(value) do
+            []
+          else
+            [{field, message}]
+          end
+        end
+      end
+
+      defp present?(obj) when obj in [nil, ""] do
+        false
+      end
+
+      defp present?(str) when is_bitstring(str)  do
+        str |> String.strip |> String.length > 0
+      end
+
+      defp validate_confirmation(changeset, field, message \\ :confirmation) do
+        validate_change changeset, field, fn a, value ->
+          confirmation_field = String.to_atom(Atom.to_string(field) <> "_confirmation")
+          confirmation = Map.get(changeset.changes, confirmation_field)
+          if value == confirmation do
+            []
+          else
+            [{confirmation_field, message}]
+          end
+        end
+      end
+
     end
   end
 

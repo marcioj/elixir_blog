@@ -1,1 +1,39 @@
-<h1>Hello</h1>
+<div class="col-xs-3" ></div>
+<div class="col-xs-6">
+  <h1>Sign up</h1>
+  <%= form_for @changeset, registrations_path(@conn, :create), fn f -> %>
+    <div class="form-group">
+    <div class="form-group <%= if error_for_field(@changeset, :email), do: "has-error" %>">
+      <label for="user_email">Email</label>
+      <%= email_input f, :email, class: "form-control" %>
+      <%= if error_for_field(@changeset, :email) do %>
+        <span class="help-block">
+          <%= error_for_field(@changeset, :email) %>
+        </span>
+      <% end %>
+    </div>
+    <div class="form-group <%= if error_for_field(@changeset, :password), do: "has-error" %>">
+      <label for="user_password">Password</label>
+      <%= password_input f, :password, class: "form-control" %>
+      <%= if error_for_field(@changeset, :password) do %>
+        <span class="help-block">
+          <%= error_for_field(@changeset, :password) %>
+        </span>
+      <% end %>
+    </div>
+    <div class="form-group <%= if error_for_field(@changeset, :password_confirmation), do: "has-error" %>">
+      <label for="user_password_confirmation">Password confirmation</label>
+      <%= password_input f, :password_confirmation, class: "form-control" %>
+      <%= if error_for_field(@changeset, :password_confirmation) do %>
+        <span class="help-block">
+          <%= error_for_field(@changeset, :password_confirmation) %>
+        </span>
+      <% end %>
+    </div>
+    </div>
+      <%= submit "Sign up", class: "btn btn-default" %>
+      <a class="pull-right" href="<%= posts_path(@conn, :index) %>">Back to posts</a>
+    </div>
+  <% end %>
+</div>
+<div class="col-xs-3" ></div>

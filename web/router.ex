@@ -24,6 +24,7 @@ defmodule Blog.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/sign_up", RegistrationsController, :new, as: :registrations
+    post "/sign_up", RegistrationsController, :create, as: :registrations
   end
 
   # Other scopes may use custom stacks.

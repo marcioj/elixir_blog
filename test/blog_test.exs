@@ -4,8 +4,10 @@ defmodule BlogTest do
   use EctoHelper
   import Blog.Router.Helpers
   import Phoenix.Controller
+  import Blog.Authenticable, only: [current_user: 1]
 
   alias Blog.Post
+  alias Blog.User
 
   test "PostsController GET index" do
     conn = request(:get, posts_path(Blog.Endpoint, :index))
@@ -59,9 +61,19 @@ defmodule BlogTest do
     assert conn.state == :sent
   end
 
-  test "RegistrationsController GET users/sign_up" do
+  test "RegistrationsController GET new" do
     conn = request(:get, registrations_path(Blog.Endpoint, :new))
     assert conn.status == 200
     assert conn.state == :sent
+  end
+
+  test "RegistrationsController POST create" do
+    assert Repo.all(Post) == []
+    conn = request(:post, registrations_path(Blog.Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "master123", password_confirmation: "master123" } })
+    assert [%User{email: "foo@bar.com", encrypted_password: "master123"}] = Repo.all(User)
+    assert current_user(conn) == User.last
+    assert conn.status == 302
+    assert conn.state == :sent
+    assert get_flash(conn, :notice) == "Welcome!"
   end
 end
