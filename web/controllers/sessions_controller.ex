@@ -2,6 +2,9 @@ defmodule Blog.SessionsController do
   use Blog.Web, :controller
   alias Blog.User
   alias Blog.Repo
+
+  plug :authenticate, :user when action in [:delete]
+  plug :unauthenticate, :user when action in [:new, :create]
   plug :action
 
   def new(conn, _params) do

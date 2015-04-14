@@ -2,6 +2,8 @@ defmodule Blog.RegistrationsController do
   use Blog.Web, :controller
   alias Blog.User
   alias Blog.Repo
+
+  plug :unauthenticate, :user when action in [:new, :create]
   plug :action
 
   def new(conn, _params) do

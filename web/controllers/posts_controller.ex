@@ -3,12 +3,8 @@ defmodule Blog.PostsController do
   alias Blog.Post
   alias Blog.Repo
 
-  # plug :authenticate, :user when action in [:index]
+  plug :authenticate, :user when action in [:new, :create, :edit, :update]
   plug :action
-
-  # defp authenticate(conn, :user) do
-  #   conn |> redirect(to: "/") |> halt
-  # end
 
   def index(conn, _params) do
     render conn, "index.html", posts: Repo.all(Post)

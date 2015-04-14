@@ -42,6 +42,7 @@ defmodule Blog.Web do
       import Blog.Router.Helpers
 
       import Blog.Authenticable
+
     end
   end
 
