@@ -13,8 +13,8 @@ defmodule Blog.PostsController do
     render conn, "new.html", changeset: changeset
   end
 
-  def create(conn, params) do
-    changeset = Post.changeset %Post{}, params["post"]
+  def create(conn, %{ "post" => post_params }) do
+    changeset = Post.changeset %Post{}, post_params
     if changeset.valid? do
       post = Repo.insert(changeset)
       conn
@@ -27,14 +27,13 @@ defmodule Blog.PostsController do
     end
   end
 
-  def edit(conn, params) do
-    post = Repo.get!(Post, params["id"])
-    post = Post.changeset(post)
+  def edit(conn, %{ "id" => id }) do
+    post = Post |> Repo.get!(id) |> Post.changeset
     render conn, "edit.html", changeset: post
   end
 
-  def update(conn, params) do
-    changeset = Post.changeset Repo.get!(Post, params["id"]), params["post"]
+  def update(conn, %{ "id" => id, "post" => post_params }) do
+    changeset = Post |> Repo.get!(id) |> Post.changeset(post_params)
     if changeset.valid? do
       post = Repo.update(changeset)
       conn
@@ -47,8 +46,8 @@ defmodule Blog.PostsController do
     end
   end
 
-  def delete(conn, params) do
-    Post.destroy params["id"]
+  def delete(conn, %{ "id" => id }) do
+    Post.destroy(id)
     conn
       |> put_flash(:notice, "Post deleted!")
       |> redirect to: posts_path(conn, :index)
