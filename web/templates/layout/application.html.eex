@@ -22,7 +22,9 @@
             <p class="navbar-text navbar-right">Signed in as <%= user.email %></p>
             <!-- TODO sign out -->
           <% else %>
-            <!-- TODO sign in-->
+            <p class="navbar-text navbar-right">
+              <%= link("Sign in", to: sessions_path(@conn, :new)) %>
+            </p>
           <% end %>
         </div>
       </div>

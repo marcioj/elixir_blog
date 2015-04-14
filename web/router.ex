@@ -25,6 +25,7 @@ defmodule Blog.Router do
 
     get "/sign_up", RegistrationsController, :new, as: :registrations
     post "/sign_up", RegistrationsController, :create, as: :registrations
+    get "/sign_in", SessionsController, :new, as: :sessions
   end
 
   # Other scopes may use custom stacks.

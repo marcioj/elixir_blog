@@ -77,4 +77,10 @@ defmodule BlogTest do
     assert conn.state == :sent
     assert get_flash(conn, :notice) == "Welcome!"
   end
+
+  test "SessionsController GET new" do
+    conn = request(:get, sessions_path(Blog.Endpoint, :new))
+    assert conn.status == 200
+    assert conn.state == :sent
+  end
 end
