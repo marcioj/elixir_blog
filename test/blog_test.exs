@@ -56,4 +56,10 @@ defmodule BlogTest do
     assert conn.status == 302
     assert conn.state == :sent
   end
+
+  test "RegistrationsController GET users/sign_up" do
+    conn = request(:get, registrations_path(Blog.Endpoint, :new))
+    assert conn.status == 200
+    assert conn.state == :sent
+  end
 end
