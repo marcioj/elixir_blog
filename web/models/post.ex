@@ -1,14 +1,15 @@
-defmodule Post do
+defmodule Blog.Post do
   use Blog.Web, :model
 
-  schema "post" do
+  schema "posts" do
     field :title, :string
     field :content, :string
+
+    timestamps
   end
 
   def destroy(id) do
-    {id, _} = Integer.parse id
-    Repo.delete(%Post{ id: id })
+    Repo.delete(%Blog.Post{ id: id |> String.to_integer })
   end
 
   def changeset(post, params \\ nil) do

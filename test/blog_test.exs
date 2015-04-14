@@ -5,6 +5,8 @@ defmodule BlogTest do
   import Blog.Router.Helpers
   import Phoenix.Controller
 
+  alias Blog.Post
+
   test "PostsController GET index" do
     conn = request(:get, posts_path(Blog.Endpoint, :index))
     assert conn.status == 200

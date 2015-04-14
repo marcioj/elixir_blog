@@ -1,5 +1,6 @@
 defmodule Blog.PostsController do
   use Blog.Web, :controller
+  alias Blog.Post
 
   plug :action
 
