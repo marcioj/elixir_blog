@@ -30,7 +30,7 @@ config :blog, Blog.Endpoint,
 config :logger, :console, format: "[$level] $message\n"
 
 # Configure your database
-config :blog, Repo,
+config :blog, Blog.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "blog_dev",
   username: "postgres",

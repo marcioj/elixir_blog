@@ -9,7 +9,7 @@ defmodule Blog.Post do
   end
 
   def destroy(id) do
-    Repo.delete(%Blog.Post{ id: id |> String.to_integer })
+    Blog.Repo.delete(%Blog.Post{ id: id |> String.to_integer })
   end
 
   def changeset(post, params \\ nil) do

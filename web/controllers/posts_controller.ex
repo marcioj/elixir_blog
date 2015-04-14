@@ -1,6 +1,7 @@
 defmodule Blog.PostsController do
   use Blog.Web, :controller
   alias Blog.Post
+  alias Blog.Repo
 
   # plug :authenticate, :user when action in [:index]
   plug :action

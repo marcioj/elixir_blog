@@ -1,6 +1,7 @@
 defmodule Blog.RegistrationsController do
   use Blog.Web, :controller
   alias Blog.User
+  alias Blog.Repo
   plug :action
 
   def new(conn, _params) do

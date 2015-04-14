@@ -6,7 +6,7 @@ config :blog, Blog.Endpoint,
 config :logger,
   level: :error
 
-config :blog, Repo,
+config :blog, Blog.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "blog_test",
   username: "postgres",

@@ -8,6 +8,7 @@ defmodule BlogTest do
 
   alias Blog.Post
   alias Blog.User
+  alias Blog.Repo
 
   test "PostsController GET index" do
     conn = request(:get, posts_path(Blog.Endpoint, :index))

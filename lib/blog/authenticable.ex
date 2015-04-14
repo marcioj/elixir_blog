@@ -4,7 +4,7 @@ defmodule Blog.Authenticable do
   def current_user(conn) do
     id = get_session(conn, :user_id)
     if id do
-      Blog.User |> Repo.get(id)
+      Blog.User |> Blog.Repo.get(id)
     end
   end
 

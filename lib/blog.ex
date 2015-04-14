@@ -10,7 +10,7 @@ defmodule Blog do
       # Start the endpoint when the application starts
       supervisor(Blog.Endpoint, []),
       # Start the Ecto repository
-      worker(Repo, [])
+      worker(Blog.Repo, [])
     ]
 
     opts = [name: Blog.Supervisor, strategy: :one_for_one]

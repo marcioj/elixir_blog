@@ -6,6 +6,7 @@ defmodule Blog.User do
   before_insert :encrypt_password
 
   def encrypt_password(changeset) do
+    # TODO encrypt the password
     change(changeset, %{ encrypted_password: changeset.changes.password })
   end
 
@@ -39,6 +40,6 @@ defmodule Blog.User do
 
   def last do
     query = from user in Blog.User, order_by: [desc: user.id], limit: 1
-    Repo.one query
+    Blog.Repo.one query
   end
 end
