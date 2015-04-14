@@ -83,4 +83,19 @@ defmodule BlogTest do
     assert conn.status == 200
     assert conn.state == :sent
   end
+
+  test "SessionsController POST create" do
+    user = Repo.insert(User.changeset(%User{}, %{ email: "foo@bar.com", password: "master123", password_confirmation: "master123" }))
+    conn = request(:post, sessions_path(Blog.Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "wrong" } })
+    assert get_flash(conn, :alert) == "Incorrect email or password"
+
+    conn = request(:post, sessions_path(Blog.Endpoint, :create), %{ user: %{ email: "lorem@bar.com", password: "master123" } })
+    assert get_flash(conn, :alert) == "Incorrect email or password"
+
+    conn = request(:post, sessions_path(Blog.Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "master123" } })
+    assert get_flash(conn, :notice) == "Welcome!"
+    assert current_user(conn).id == user.id
+    assert conn.status == 302
+    assert conn.state == :sent
+  end
 end
