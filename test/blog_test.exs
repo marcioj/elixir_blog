@@ -4,7 +4,7 @@ defmodule BlogTest do
   use EctoHelper
   import Blog.Router.Helpers
   import Phoenix.Controller
-  import Blog.Authenticable, only: [current_user: 1]
+  import Blog.Authenticable
 
   alias Blog.Post
   alias Blog.User
@@ -95,6 +95,19 @@ defmodule BlogTest do
     conn = request(:post, sessions_path(Blog.Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "master123" } })
     assert get_flash(conn, :notice) == "Welcome!"
     assert current_user(conn).id == user.id
+    assert conn.status == 302
+    assert conn.state == :sent
+  end
+
+  test "SessionsController DELETE delete" do
+    user = Repo.insert(User.changeset(%User{}, %{ email: "foo@bar.com", password: "master123", password_confirmation: "master123" }))
+    conn = create_conn(:delete, sessions_path(Blog.Endpoint, :delete))
+    conn = sign_in(conn, user)
+    assert current_user(conn).id == user.id
+
+    conn = request(conn)
+    assert !current_user(conn)
+    assert get_flash(conn, :notice) == "See you later"
     assert conn.status == 302
     assert conn.state == :sent
   end

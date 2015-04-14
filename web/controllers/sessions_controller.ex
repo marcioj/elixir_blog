@@ -23,4 +23,12 @@ defmodule Blog.SessionsController do
     end
   end
 
+  def delete(conn, _params) do
+    user = current_user(conn)
+
+    conn
+      |> sign_out_user(user)
+      |> put_flash(:notice, "See you later")
+      |> redirect to: "/"
+  end
 end

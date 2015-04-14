@@ -17,10 +17,10 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Elixir blog</a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
+        <div class="collapse navbar-collapse" >
           <%= if user = current_user(@conn) do %>
+            <%= link("Sign out", to: sessions_path(@conn, :delete), method: :delete, form: [class: "navbar-text navbar-right"]) %>
             <p class="navbar-text navbar-right">Signed in as <%= user.email %></p>
-            <!-- TODO sign out -->
           <% else %>
             <p class="navbar-text navbar-right">
               <%= link("Sign in", to: sessions_path(@conn, :new)) %>
