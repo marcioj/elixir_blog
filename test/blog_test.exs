@@ -114,7 +114,7 @@ defmodule BlogTest do
     should_be_unauthenticated!(conn)
     conn = request(conn)
 
-    assert %User{email: "foo@bar.com", encrypted_password: "master123"} = User.last
+    assert %User{email: "foo@bar.com" } = User.last
     assert current_user(conn) == User.last
     assert conn.status == 302
     assert conn.state == :sent

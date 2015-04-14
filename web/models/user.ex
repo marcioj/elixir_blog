@@ -6,8 +6,8 @@ defmodule Blog.User do
   before_insert :encrypt_password
 
   def encrypt_password(changeset) do
-    # TODO encrypt the password
-    change(changeset, %{ encrypted_password: changeset.changes.password })
+    encrypted_password = Comeonin.Bcrypt.hashpwsalt(changeset.changes.password )
+    change(changeset, %{ encrypted_password: encrypted_password })
   end
 
   schema "users" do
@@ -39,10 +39,11 @@ defmodule Blog.User do
   end
 
   def authenticate(%{ "email" => email, "password" => password }) do
-    # TODO encrypt the password
-    encrypted_password = password
-    query = from user in Blog.User, where: user.email == ^email and user.encrypted_password == ^encrypted_password
-    Blog.Repo.one query
+    query = from user in Blog.User, where: user.email == ^email
+    user = Blog.Repo.one query
+    if user && Comeonin.Bcrypt.checkpw(password, user.encrypted_password) do
+      user
+    end
   end
 
   def last do

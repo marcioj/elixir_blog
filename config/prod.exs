@@ -25,3 +25,7 @@ config :blog, Blog.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost"
+
+config :comeonin,
+  bcrypt_log_rounds: 14,
+  pbkdf2_rounds: 100_000
