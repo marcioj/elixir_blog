@@ -9,7 +9,7 @@ defmodule Blog.Authenticable do
     end
   end
 
-  def sign_out_user(conn, %{ id: id }) do
+  def sign_out_user(conn, _ ) do
     delete_session(conn, :user_id)
   end
 
