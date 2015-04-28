@@ -3,7 +3,7 @@ defmodule Blog.PostsController do
   alias Blog.Post
   alias Blog.Repo
 
-  plug :authenticate, :user when action in [:new, :create, :edit, :update]
+  plug :authenticate, :user when action in [:new, :create, :edit, :update, :delete]
   plug :action
 
   def index(conn, _params) do

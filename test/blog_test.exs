@@ -94,7 +94,12 @@ defmodule BlogTest do
   end
 
   test "PostsController DELETE delete" do
-    conn = request(:delete, posts_path(Endpoint, :delete, create_post.id))
+    conn = create_conn(:delete, posts_path(Endpoint, :delete, create_post.id))
+    should_be_authenticated!(conn)
+    assert Enum.count(Repo.all(Post)) == 1
+
+    conn = sign_in(conn, create_user)
+    conn = request(conn)
     assert Repo.all(Post) == []
     assert conn.status == 302
     assert conn.state == :sent
