@@ -10,13 +10,20 @@ defmodule BlogTest do
   alias Blog.Post
   alias Blog.User
   alias Blog.Repo
+  alias Blog.Endpoint
 
+  @doc """
+  Makes sure that conn is redirected with a flash if there's no user logged in.
+  """
   def should_be_authenticated!(%Plug.Conn{} = conn) do
     conn = request(conn)
     assert get_flash(conn, :alert) == "You must be authenticated to proceed"
     assert conn.status == 302
   end
 
+  @doc """
+  Makes sure that conn is redirected with a flash if the user is already logged in.
+  """
   def should_be_unauthenticated!(%Plug.Conn{} = conn, user \\ create_user) do
     conn = sign_in(conn, user)
     conn = request(conn)
@@ -33,13 +40,13 @@ defmodule BlogTest do
   end
 
   test "PostsController GET index" do
-    conn = request(:get, posts_path(Blog.Endpoint, :index))
+    conn = request(:get, posts_path(Endpoint, :index))
     assert conn.status == 200
     assert conn.state == :sent
   end
 
   test "PostsController GET new" do
-    conn = create_conn(:get, posts_path(Blog.Endpoint, :new))
+    conn = create_conn(:get, posts_path(Endpoint, :new))
     should_be_authenticated!(conn)
 
     conn = sign_in(conn, create_user)
@@ -50,7 +57,7 @@ defmodule BlogTest do
   end
 
   test "PostsController POST create" do
-    conn = create_conn(:post, posts_path(Blog.Endpoint, :create), %{ post: %{ title: "foo", content: "bar" } })
+    conn = create_conn(:post, posts_path(Endpoint, :create), %{ post: %{ title: "foo", content: "bar" } })
     should_be_authenticated!(conn)
 
     conn = sign_in(conn, create_user)
@@ -63,7 +70,7 @@ defmodule BlogTest do
   end
 
   test "PostsController GET edit" do
-    conn = create_conn(:get, posts_path(Blog.Endpoint, :edit, create_post.id))
+    conn = create_conn(:get, posts_path(Endpoint, :edit, create_post.id))
     should_be_authenticated!(conn)
 
     conn = sign_in(conn, create_user)
@@ -74,7 +81,7 @@ defmodule BlogTest do
   end
 
   test "PostsController PUT update" do
-    conn = create_conn(:put, posts_path(Blog.Endpoint, :update, create_post.id), %{ post: %{ title: "new title", content: "new content" } })
+    conn = create_conn(:put, posts_path(Endpoint, :update, create_post.id), %{ post: %{ title: "new title", content: "new content" } })
     should_be_authenticated!(conn)
 
     conn = sign_in(conn, create_user)
@@ -87,7 +94,7 @@ defmodule BlogTest do
   end
 
   test "PostsController DELETE delete" do
-    conn = request(:delete, posts_path(Blog.Endpoint, :delete, create_post.id))
+    conn = request(:delete, posts_path(Endpoint, :delete, create_post.id))
     assert Repo.all(Post) == []
     assert conn.status == 302
     assert conn.state == :sent
@@ -95,13 +102,13 @@ defmodule BlogTest do
   end
 
   test "PagesController GET index" do
-    conn = request(:get, page_path(Blog.Endpoint, :index))
+    conn = request(:get, page_path(Endpoint, :index))
     assert conn.status == 302
     assert conn.state == :sent
   end
 
   test "RegistrationsController GET new" do
-    conn = create_conn(:get, registrations_path(Blog.Endpoint, :new))
+    conn = create_conn(:get, registrations_path(Endpoint, :new))
     should_be_unauthenticated!(conn)
     conn = request(conn)
 
@@ -110,7 +117,7 @@ defmodule BlogTest do
   end
 
   test "RegistrationsController POST create" do
-    conn = create_conn(:post, registrations_path(Blog.Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "master123", password_confirmation: "master123" } })
+    conn = create_conn(:post, registrations_path(Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "master123", password_confirmation: "master123" } })
     should_be_unauthenticated!(conn)
     conn = request(conn)
 
@@ -122,7 +129,7 @@ defmodule BlogTest do
   end
 
   test "SessionsController GET new" do
-    conn = create_conn(:get, sessions_path(Blog.Endpoint, :new))
+    conn = create_conn(:get, sessions_path(Endpoint, :new))
     should_be_unauthenticated!(conn)
     conn = request(conn)
 
@@ -131,16 +138,16 @@ defmodule BlogTest do
   end
 
   test "SessionsController POST create" do
-    conn = create_conn(:post, sessions_path(Blog.Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "wrong" } })
+    conn = create_conn(:post, sessions_path(Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "wrong" } })
     user = create_user
     should_be_unauthenticated!(conn, user)
     conn = request(conn)
     assert get_flash(conn, :alert) == "Incorrect email or password"
 
-    conn = request(:post, sessions_path(Blog.Endpoint, :create), %{ user: %{ email: "lorem@bar.com", password: "master123" } })
+    conn = request(:post, sessions_path(Endpoint, :create), %{ user: %{ email: "lorem@bar.com", password: "master123" } })
     assert get_flash(conn, :alert) == "Incorrect email or password"
 
-    conn = request(:post, sessions_path(Blog.Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "master123" } })
+    conn = request(:post, sessions_path(Endpoint, :create), %{ user: %{ email: "foo@bar.com", password: "master123" } })
     assert get_flash(conn, :notice) == "Welcome!"
     assert current_user(conn).id == user.id
     assert conn.status == 302
@@ -149,7 +156,7 @@ defmodule BlogTest do
 
   test "SessionsController DELETE delete" do
     user = create_user
-    conn = create_conn(:delete, sessions_path(Blog.Endpoint, :delete))
+    conn = create_conn(:delete, sessions_path(Endpoint, :delete))
     conn = sign_in(conn, user)
     assert current_user(conn).id == user.id
 
