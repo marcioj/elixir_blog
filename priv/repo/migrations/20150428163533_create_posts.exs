@@ -5,6 +5,7 @@ defmodule Blog.Repo.Migrations.CreatePosts do
     create table(:posts) do
       add :title, :string
       add :content, :text
+      add :author_id, references(:users), null: false
 
       timestamps
     end

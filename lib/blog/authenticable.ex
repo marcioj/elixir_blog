@@ -2,6 +2,10 @@ defmodule Blog.Authenticable do
   import Plug.Conn
   import Phoenix.Controller
 
+  def current_user_id(conn) do
+    get_session(conn, :user_id)
+  end
+
   def current_user(conn) do
     id = get_session(conn, :user_id)
     if id do
