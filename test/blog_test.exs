@@ -81,16 +81,31 @@ defmodule BlogTest do
   end
 
   test "PostsController PUT update" do
-    conn = create_conn(:put, posts_path(Endpoint, :update, create_post.id), %{ post: %{ title: "new title", content: "new content" } })
+    author = create_user
+    post = author |> create_post
+    conn = create_conn(:put, posts_path(Endpoint, :update, post.id), %{ post: %{ title: "new title", content: "new content" } })
     should_be_authenticated!(conn)
 
-    conn = sign_in(conn, create_user)
+    conn = sign_in(conn, author)
     conn = request(conn)
 
     assert [%Post{title: "new title", content: "new content"}] = Repo.all(Post)
     assert conn.status == 302
     assert conn.state == :sent
     assert get_flash(conn, :notice) == "Post 'new title' updated!"
+  end
+
+  test "Should not allow post updates by users other than the author of the post" do
+    author = create_user
+    other_user = create_user
+    post = create_post(author)
+    conn = create_conn(:put, posts_path(Endpoint, :update, post.id), %{ post: %{ title: "new title", content: "new content" } })
+      |> sign_in(other_user)
+      |> request()
+    assert conn.status == 302
+    assert conn.state == :sent
+    assert get_flash(conn, :alert) == "This post doesn't belong to you!"
+    assert [post] == Repo.all(Post)
   end
 
   test "PostsController DELETE delete" do
