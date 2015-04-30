@@ -5,3 +5,5 @@ sudo: false
 before_script:
   - MIX_ENV=test mix ecto.create
   - MIX_ENV=test mix ecto.migrate
+notifications:
+  email: false
