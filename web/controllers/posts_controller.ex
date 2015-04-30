@@ -65,9 +65,16 @@ defmodule Blog.PostsController do
   end
 
   def delete(conn, %{ "id" => id }) do
-    Post.destroy(id)
-    conn
-      |> put_flash(:notice, "Post deleted!")
-      |> redirect to: posts_path(conn, :index)
+    post = Post |> Repo.get!(id)
+    if post.author_id == current_user_id(conn) do
+      Post.destroy(id)
+      conn
+        |> put_flash(:notice, "Post deleted!")
+        |> redirect to: posts_path(conn, :index)
+    else
+      conn
+        |> put_flash(:alert, "This post doesn't belong to you!")
+        |> redirect to: posts_path(conn, :index)
+    end
   end
 end
