@@ -16,6 +16,7 @@ defmodule Blog.PostsController do
   end
 
   def create(conn, %{ "post" => post_params }) do
+    post_params = Dict.put(post_params, "author_id", current_user_id(conn))
     changeset = Post.changeset %Post{}, post_params
     if changeset.valid? do
       post = Repo.insert(changeset)
@@ -35,6 +36,7 @@ defmodule Blog.PostsController do
   end
 
   def update(conn, %{ "id" => id, "post" => post_params }) do
+    post_params = Dict.put(post_params, "author_id", current_user_id(conn))
     changeset = Post |> Repo.get!(id) |> Post.changeset(post_params)
     if changeset.valid? do
       post = Repo.update(changeset)

@@ -4,6 +4,7 @@ defmodule Blog.Post do
   schema "posts" do
     field :title, :string
     field :content, :string
+    belongs_to :author, Blog.User
 
     timestamps
   end
@@ -14,8 +15,9 @@ defmodule Blog.Post do
 
   def changeset(post, params \\ nil) do
     post
-      |> cast(params, ~w(title content), ~w())
+      |> cast(params, ~w(title content author_id), ~w())
       |> validate_presence(:title, "Title is required")
       |> validate_presence(:content, "Content is required")
+      |> validate_presence(:author, "Author is required")
   end
 end

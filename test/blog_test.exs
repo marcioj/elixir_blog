@@ -35,8 +35,8 @@ defmodule BlogTest do
     Repo.insert(User.changeset(%User{}, %{ email: "foo@bar.com", password: "master123", password_confirmation: "master123" }))
   end
 
-  def create_post do
-    Repo.insert(%Post{ title: "hello", content: "world" })
+  def create_post(%User{ id: id } \\ create_user) do
+    Repo.insert(%Post{ title: "hello", content: "world", author_id: id })
   end
 
   test "PostsController GET index" do
@@ -59,11 +59,11 @@ defmodule BlogTest do
   test "PostsController POST create" do
     conn = create_conn(:post, posts_path(Endpoint, :create), %{ post: %{ title: "foo", content: "bar" } })
     should_be_authenticated!(conn)
-
-    conn = sign_in(conn, create_user)
+    user = %{ id: id } = create_user
+    conn = sign_in(conn, user)
     conn = request(conn)
 
-    assert [%Post{content: "bar", title: "foo"}] = Repo.all(Post)
+    assert [%Post{content: "bar", title: "foo", author_id: ^id}] = Repo.all(Post)
     assert conn.status == 302
     assert conn.state == :sent
     assert get_flash(conn, :notice) == "Post 'foo' created!"
