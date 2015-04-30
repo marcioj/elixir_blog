@@ -36,8 +36,22 @@ defmodule Blog.PostsController do
   end
 
   def update(conn, %{ "id" => id, "post" => post_params }) do
-    post_params = Dict.put(post_params, "author_id", current_user_id(conn))
-    changeset = Post |> Repo.get!(id) |> Post.changeset(post_params)
+    post = Post |> Repo.get!(id)
+    if post.author_id == current_user_id(conn) do
+      update_post(conn, post, sanitize_params(post_params))
+    else
+      conn
+        |> put_flash(:alert, "This post doesn't belong to you!")
+        |> redirect to: posts_path(conn, :index)
+    end
+  end
+
+  defp sanitize_params(post_params) do
+    Dict.delete(post_params, "author_id") # author_id should NEVER come from the user
+  end
+
+  defp update_post(conn, post = %Post{}, post_params ) do
+    changeset = post |> Post.changeset(post_params)
     if changeset.valid? do
       post = Repo.update(changeset)
       conn
