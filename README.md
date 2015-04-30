@@ -2,6 +2,8 @@
 
 > A simple CRUD application for learning purposes using phoenix and ecto.
 
+[![Build Status][travis_badge]][travis]
+
 ## Installation
 
 1. Clone the repo with `git clone git@github.com:marcioj/elixir_blog.git`
@@ -26,3 +28,6 @@ Now you can visit `localhost:4000` from your browser.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+[travis]: https://travis-ci.org/marcioj/elixir_blog
+[travis_badge]: https://api.travis-ci.org/marcioj/elixir_blog.svg?branch=master
