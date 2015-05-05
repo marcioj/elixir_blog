@@ -8,14 +8,16 @@
     <div class="col-xs-8">
       <h2><%= post.title %></h4>
       <p class="post-content"><%= post.content %></p>
-      <div>
-        <%= link "Edit", to: posts_path(@conn, :edit, post), class: "btn btn-default" %>
-        <!-- Remove this when become possible to pass the `window.confirm` to generated link helper form -->
-        <form style="float: right;" method="post" onsubmit="return confirm('Are you sure?');" action="<%= posts_path(@conn, :delete, post.id, _method: "delete") %>">
-          <input type="hidden" name="_csrf_token" value="<%= get_csrf_token %>" />
-          <input type="submit" value="Remove" class="btn btn-danger">
-        </form>
-      </div>
+      <%= if post.author_id == current_user_id(@conn) do %>
+        <div>
+          <%= link "Edit", to: posts_path(@conn, :edit, post), class: "btn btn-default" %>
+          <!-- Remove this when become possible to pass the `window.confirm` to generated link helper form -->
+          <form style="float: right;" method="post" onsubmit="return confirm('Are you sure?');" action="<%= posts_path(@conn, :delete, post.id, _method: "delete") %>">
+            <input type="hidden" name="_csrf_token" value="<%= get_csrf_token %>" />
+            <input type="submit" value="Remove" class="btn btn-danger">
+          </form>
+        </div>
+      <% end %>
     </div>
     <div class="col-xs-2"></div>
   </div>
