@@ -25,7 +25,7 @@ defmodule Blog.Authenticable do
     unless current_user(conn) do
       conn
       |> put_flash(:alert, "You must be authenticated to proceed")
-      |> redirect(to: "/")
+      |> redirect(to: "/users/sign_in")
       |> halt
     else
       conn
