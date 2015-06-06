@@ -1,6 +1,6 @@
 # Blog
 
-> A simple CRUD application for learning purposes using phoenix and ecto.
+> A simple CRUD application with authentication using phoenix and ecto.
 
 [![Build Status][travis_badge]][travis]
 
